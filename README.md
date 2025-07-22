@@ -1,0 +1,2 @@
+# RustGameTool
+用于Facepunch家的游戏Rust的一些工具
