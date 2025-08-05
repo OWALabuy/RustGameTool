@@ -1,0 +1,103 @@
+{
+  "rust_drum_mapping": {
+    "C3": {
+      "midi_note": 48,
+      "drum_name": "底鼓",
+      "gm_drum": 35,
+      "description": "主要的底鼓音色"
+    },
+    "C#3": {
+      "midi_note": 49,
+      "drum_name": "底鼓2",
+      "gm_drum": 36,
+      "description": "第二个底鼓音色"
+    },
+    "D3": {
+      "midi_note": 50,
+      "drum_name": "军鼓",
+      "gm_drum": 38,
+      "description": "主要的军鼓音色"
+    },
+    "D#3": {
+      "midi_note": 51,
+      "drum_name": "1通鼓",
+      "gm_drum": 41,
+      "description": "第一个通鼓"
+    },
+    "E3": {
+      "midi_note": 52,
+      "drum_name": "闭合踩镲",
+      "gm_drum": 42,
+      "description": "闭合状态的踩镲"
+    },
+    "F3": {
+      "midi_note": 53,
+      "drum_name": "2通鼓",
+      "gm_drum": 43,
+      "description": "第二个通鼓"
+    },
+    "F#3": {
+      "midi_note": 54,
+      "drum_name": "牛铃",
+      "gm_drum": 56,
+      "description": "牛铃音色"
+    },
+    "G3": {
+      "midi_note": 55,
+      "drum_name": "3通鼓",
+      "gm_drum": 45,
+      "description": "第三个通鼓"
+    },
+    "G#3": {
+      "midi_note": 56,
+      "drum_name": "军鼓2",
+      "gm_drum": 40,
+      "description": "第二个军鼓音色"
+    },
+    "A3": {
+      "midi_note": 57,
+      "drum_name": "4通鼓",
+      "gm_drum": 47,
+      "description": "第四个通鼓"
+    },
+    "A#3": {
+      "midi_note": 58,
+      "drum_name": "踩镲2",
+      "gm_drum": 48,
+      "description": "第二个踩镲音色（用于开镲）"
+    },
+    "B3": {
+      "midi_note": 59,
+      "drum_name": "吊镲",
+      "gm_drum": 49,
+      "description": "吊镲音色"
+    }
+  },
+  "special_notes": {
+    "开镲": {
+      "description": "开镲没有对应的MIDI音符，建议映射到踩镲2 (A#3) 以区分闭合踩镲",
+      "recommended_mapping": "A#3 (踩镲2)"
+    }
+  },
+  "usage_tips": [
+    "1. 在MuseScore中编写鼓谱时，使用标准的GM鼓音符",
+    "2. 使用转换工具将鼓谱转换为Rust可播放的钢琴键位",
+    "3. 开镲建议映射到踩镲2，这样可以区分闭合和开放状态",
+    "4. 测试时建议从简单的节奏开始，逐步增加复杂度"
+  ],
+  "common_patterns": {
+    "基本节奏": {
+      "底鼓": "C3",
+      "军鼓": "D3", 
+      "踩镲": "E3",
+      "开镲": "A#3"
+    },
+    "摇滚节奏": {
+      "底鼓": "C3",
+      "军鼓": "D3",
+      "踩镲": "E3",
+      "吊镲": "B3",
+      "通鼓": ["D#3", "F3", "G3", "A3"]
+    }
+  }
+} 
