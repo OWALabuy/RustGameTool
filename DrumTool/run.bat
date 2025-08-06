@@ -14,6 +14,7 @@ if "%1"=="" (
     echo   run.bat update-mapping 鼓音符 钢琴音符 "鼓名称"
     echo   run.bat example
     echo   run.bat test
+    echo   run.bat ride
     echo.
     echo 示例:
     echo   run.bat drum2piano drum_score.mid piano_ready.mid
@@ -30,6 +31,11 @@ if "%1"=="example" (
 
 if "%1"=="test" (
     python test_rust_mapping.py
+    goto :end
+)
+
+if "%1"=="ride" (
+    python ride_example.py
     goto :end
 )
 
