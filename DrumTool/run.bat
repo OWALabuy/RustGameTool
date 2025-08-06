@@ -15,6 +15,7 @@ if "%1"=="" (
     echo   run.bat example
     echo   run.bat test
     echo   run.bat ride
+    echo   run.bat channel-test
     echo.
     echo 示例:
     echo   run.bat drum2piano drum_score.mid piano_ready.mid
@@ -36,6 +37,11 @@ if "%1"=="test" (
 
 if "%1"=="ride" (
     python ride_example.py
+    goto :end
+)
+
+if "%1"=="channel-test" (
+    python test_channel_fix.py
     goto :end
 )
 

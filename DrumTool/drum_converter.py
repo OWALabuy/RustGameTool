@@ -98,6 +98,15 @@ class DrumConverter:
                         else:
                             # 非鼓轨直接复制
                             new_track.append(msg)
+                    elif msg.type == 'program_change':
+                        # 处理乐器变更消息
+                        if msg.channel == channel:
+                            # 将鼓轨的乐器改为钢琴（乐器0）
+                            new_msg = msg.copy(program=0, channel=0)
+                            new_track.append(new_msg)
+                        else:
+                            # 其他通道的乐器变更直接复制
+                            new_track.append(msg)
                     else:
                         # 其他消息直接复制
                         new_track.append(msg)
@@ -142,6 +151,15 @@ class DrumConverter:
                                 click.echo(f"警告: 未找到钢琴音符 {msg.note} 的映射")
                         else:
                             # 非钢琴轨直接复制
+                            new_track.append(msg)
+                    elif msg.type == 'program_change':
+                        # 处理乐器变更消息
+                        if msg.channel == channel:
+                            # 将钢琴轨的乐器改为鼓轨（通道9，乐器0）
+                            new_msg = msg.copy(program=0, channel=9)
+                            new_track.append(new_msg)
+                        else:
+                            # 其他通道的乐器变更直接复制
                             new_track.append(msg)
                     else:
                         # 其他消息直接复制
