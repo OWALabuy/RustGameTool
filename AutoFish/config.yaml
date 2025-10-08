@@ -24,7 +24,7 @@ cast:
 switch_keys: ["1", "2"]
 switch_pause_ms: 250
 
-wait_timeout_s: 60
+wait_timeout_s: 150
 
 activate_window_before_actions: true
 
