@@ -17,8 +17,8 @@ cooldown_s: 1.8
 scales: [0.9, 1.0, 1.1]
 
 cast:
-  right_hold_ms: 350
-  post_left_delay_ms: 200
+  right_hold_ms: 1500
+  post_left_delay_ms: 30
   keep_right_during_wait: false
 
 switch_keys: ["1", "2"]

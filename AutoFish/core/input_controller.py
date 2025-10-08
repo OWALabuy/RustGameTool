@@ -1,6 +1,6 @@
 import logging
 import time
-from typing import List
+from typing import Callable, List, Optional
 
 from pynput import keyboard, mouse
 
@@ -21,12 +21,17 @@ class InputController:
         if self._activate:
             activate_window(window_id)
             time.sleep(0.05)
+        # 按住右键 right_hold_ms 毫秒
         self._ms.press(mouse.Button.right)
         self._sleep_ms(right_hold_ms)
-        self._ms.click(mouse.Button.left, 1)
+        # 在仍按住右键的同时，单击一次左键（显式按下/抬起）
+        self._ms.press(mouse.Button.left)
+        self._sleep_ms(10)
+        self._ms.release(mouse.Button.left)
+        # 很短延迟后释放右键，近似“同时松开两个键”
         self._sleep_ms(post_left_delay_ms)
-        if not keep_right_during_wait:
-            self._ms.release(mouse.Button.right)
+        self._ms.release(mouse.Button.right)
+        # keep_right_during_wait 对该抛竿动作不适用
 
     def switch_rod(self, keys: List[str], switch_pause_ms: int, window_id: str) -> None:
         if self._activate:
@@ -39,21 +44,33 @@ class InputController:
 
 
 class AltGraveHotkey:
-    def __init__(self, on_toggle) -> None:
+    def __init__(self, on_toggle: Callable[[], None]) -> None:
         self._on_toggle = on_toggle
-        self._alt_pressed = False
+        self._alt_down = False
+        self._last_toggle_ts: float = 0.0
         self._listener = keyboard.Listener(on_press=self._on_press, on_release=self._on_release)
 
+    def _is_backtick(self, key) -> bool:  # noqa: ANN001
+        # 反引号字符（`），在 pynput 中通常以 KeyCode.char 提供
+        ch: Optional[str] = getattr(key, "char", None)
+        return ch == "`"
+
     def _on_press(self, key) -> None:  # noqa: ANN001
-        if key in (keyboard.Key.alt, keyboard.Key.alt_l, keyboard.Key.alt_r):
-            self._alt_pressed = True
-        elif getattr(key, "vk", None) == 96 or key == keyboard.Key.grave:  # backtick
-            if self._alt_pressed:
-                self._on_toggle()
+        try:
+            if key in (keyboard.Key.alt, keyboard.Key.alt_l, keyboard.Key.alt_r):
+                self._alt_down = True
+                return
+            if self._alt_down and self._is_backtick(key):
+                now = time.monotonic()
+                if now - self._last_toggle_ts > 0.3:  # 防抖
+                    self._last_toggle_ts = now
+                    self._on_toggle()
+        except Exception as exc:  # noqa: BLE001
+            logging.error("Hotkey on_press error: %s", exc)
 
     def _on_release(self, key) -> None:  # noqa: ANN001
         if key in (keyboard.Key.alt, keyboard.Key.alt_l, keyboard.Key.alt_r):
-            self._alt_pressed = False
+            self._alt_down = False
 
     def start(self) -> None:
         self._listener.start()

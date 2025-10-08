@@ -1,6 +1,7 @@
+import threading
 import time
 from dataclasses import dataclass
-from typing import Dict, Tuple
+from typing import Tuple
 
 import numpy as np
 from mss import mss
@@ -18,9 +19,13 @@ class ROIConfig:
 
 class ScreenCapture:
     def __init__(self, fps: int) -> None:
-        self._sct = mss()
         self._frame_interval_s = 1.0 / max(1, fps)
-        self._last_grab_time = 0.0
+        self._tls = threading.local()
+
+    def _ensure_ctx(self) -> None:
+        if not hasattr(self._tls, "sct"):
+            self._tls.sct = mss()
+            self._tls.last_grab_time = 0.0
 
     @staticmethod
     def compute_roi_rect(window: WindowGeometry, cfg: ROIConfig) -> Tuple[int, int, int, int]:
@@ -33,13 +38,13 @@ class ScreenCapture:
         return left, top, roi_width, roi_height
 
     def grab_roi(self, window: WindowGeometry, cfg: ROIConfig) -> np.ndarray:
+        self._ensure_ctx()
         now = time.monotonic()
-        sleep_s = self._frame_interval_s - (now - self._last_grab_time)
+        sleep_s = self._frame_interval_s - (now - getattr(self._tls, "last_grab_time", 0.0))
         if sleep_s > 0:
             time.sleep(sleep_s)
         left, top, width, height = self.compute_roi_rect(window, cfg)
-        raw = self._sct.grab({"left": left, "top": top, "width": width, "height": height})
-        self._last_grab_time = time.monotonic()
+        raw = self._tls.sct.grab({"left": left, "top": top, "width": width, "height": height})
+        self._tls.last_grab_time = time.monotonic()
         frame = np.asarray(raw, dtype=np.uint8)
-        # BGRA -> BGR
         return frame[:, :, :3]
