@@ -5,6 +5,12 @@ import time
 from pathlib import Path
 
 import yaml
+import os
+import sys
+
+# Allow running via: python AutoFish/main.py or from inside AutoFish/
+if __package__ is None or __package__ == "":
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from AutoFish.core.capture import ROIConfig
 from AutoFish.core.detector import DetectorConfig, LootDetector

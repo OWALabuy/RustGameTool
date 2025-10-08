@@ -18,11 +18,21 @@ source .venv/bin/activate
 pip install -r AutoFish/requirements.txt
 ```
 
-使用
+运行
+- 推荐（项目根目录执行）：
+```bash
+python -m AutoFish.main run
+```
+- 也可从项目根目录执行脚本方式（已内置路径引导）：
 ```bash
 python AutoFish/main.py run
 ```
+- 或者进入目录后运行：
+```bash
+cd AutoFish && python main.py run
+```
 
+热键
 - Alt+`：开始/暂停自动钓鱼
 - 退出：Ctrl+C（终端）
 
@@ -40,12 +50,13 @@ python AutoFish/main.py run
 
 多显示器说明
 - 本工具不会截取整桌面，而是：
- 1) 使用 `xdotool` 查找并激活名为 `window_name_patterns` 的 Rust 窗口；
- 2) 获取该窗口的绝对坐标与尺寸（位于哪个显示器均可）；
- 3) 仅在该矩形内裁剪右下角 ROI，保证分辨率变化与多屏均可用。
+  1) 使用 `xdotool` 查找并激活名为 `window_name_patterns` 的 Rust 窗口；
+  2) 获取该窗口的绝对坐标与尺寸（位于哪个显示器均可）；
+  3) 仅在该矩形内裁剪右下角 ROI，保证分辨率变化与多屏均可用。
 
 常见问题
 - 未安装 `xdotool`：无法定位窗口，请按上文安装。
+- 模块找不到：推荐使用 `python -m AutoFish.main run`，或使用脚本方式（已加入路径引导）。
 - 模板误报/漏报：
   - 降低或升高 `threshold`（如 0.86 → 0.83/0.89）
   - 增减 `scales`（如 [0.9, 1.0, 1.1]）以兼容缩放/分辨率
