@@ -1,33 +1,46 @@
-window_name_patterns:
-  - "Rust"
-  - "rust"
-  - "steam_app_252490"
+# Rust AutoFish 配置（Linux/X11）
+# - 可按需调整阈值、ROI、时序与键位
 
+# Rust 窗口标题匹配（按序尝试，等同于 xdotool search --name）
+window_name_patterns:
+  - "Rust"        # 首选：窗口标题包含 Rust
+  - "rust"        # 备选：小写
+  - "steam_app_252490"  # 备选：Steam 内部窗口名
+
+# 捕获帧率（FPS），推荐 4，降低 CPU 开销
 fps: 4
 
+# 右下角 ROI（相对窗口尺寸的百分比），用于检测“入库”提示
 roi:
-  width_pct: 0.28
-  height_pct: 0.32
-  margin_right_pct: 0.00
-  margin_bottom_pct: 0.00
+  width_pct: 0.28          # ROI 宽度比例（0~1），建议 0.24~0.32
+  height_pct: 0.32         # ROI 高度比例（0~1），建议 0.28~0.36
+  margin_right_pct: 0.00   # 距离窗口右侧的边距比例
+  margin_bottom_pct: 0.00  # 距离窗口底部的边距比例
 
-threshold: 0.86
-consecutive_required: 2
-cooldown_s: 1.8
-scales: [0.9, 1.0, 1.1]
+# 模板匹配参数
+threshold: 0.86            # 匹配阈值，越高越严格（0.83~0.90 试调）
+consecutive_required: 2    # 连续命中帧数，增大可降误检
+cooldown_s: 1.8            # 每次命中后的去抖冷却时间（秒）
+scales: [0.9, 1.0, 1.1]    # 模板缩放比例列表，兼容缩放/分辨率
 
+# 抛竿动作时序（按住右键 -> 左键点击 -> 同时释放）
 cast:
-  right_hold_ms: 1500
-  post_left_delay_ms: 30
-  keep_right_during_wait: false
+  right_hold_ms: 1500      # 右键按住时长（毫秒）
+  post_left_delay_ms: 30   # 左键抬起到释放右键之间的延迟（毫秒）
+  keep_right_during_wait: false  # 固定为 false（按你的流程抛竿后即释放）
 
+# 抛竿后去抖时间（秒） 抛竿后多少秒不再检测
 detect_suppress_after_cast_s: 5.0
 
-switch_keys: ["1", "2"]
-switch_pause_ms: 250
+# 切竿配置
+switch_keys: ["1", "2"]  # 轮换键位，按 1 ↔ 2 交替；仅 1 个键则不交替
+switch_pause_ms: 250       # 按键间隔（毫秒）
 
+# 等待入库提示的超时时间（秒），超时则重抛但不切竿
 wait_timeout_s: 150
 
+# 在执行输入前是否先激活窗口（建议开启）
 activate_window_before_actions: true
 
+# 在执行输入前是否先激活窗口（建议开启）
 loot_template_path: "AutoFish/templates/loot_icon.png"
