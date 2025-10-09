@@ -27,6 +27,7 @@ class FishingStateMachine:
         switch_keys: List[str],
         switch_pause_ms: int,
         wait_timeout_s: int,
+        detect_suppress_after_cast_s: float = 5.0,
     ) -> None:
         self._window = window
         self._roi_cfg = roi_cfg
@@ -36,6 +37,7 @@ class FishingStateMachine:
         self._switch_keys = switch_keys
         self._switch_pause_ms = switch_pause_ms
         self._wait_timeout_s = wait_timeout_s
+        self._detect_suppress_after_cast_s = max(0.0, float(detect_suppress_after_cast_s))
         self._running = False
         # 从 0 开始（对应 switch_keys[0]，例如 "1"），每次命中后在 0 与 1 间切换
         self._rod_index = 0
@@ -55,12 +57,19 @@ class FishingStateMachine:
             window_id=self._window.window_id,
         )
         logging.info("Casting done; waiting for loot cue...")
+
+        # 抛竿后抑制检测一段时间，避免旧动画残留导致误判
+        suppress_until = time.monotonic() + self._detect_suppress_after_cast_s
+
         # 等待入库提示
         t0 = time.monotonic()
         detected = False
         last_score = 0.0
         while self._running and (time.monotonic() - t0) < self._wait_timeout_s:
             frame = self._capture.grab_roi(self._window, self._roi_cfg)
+            if time.monotonic() < suppress_until:
+                # 抑制期内只限速抓帧，不做检测
+                continue
             hit, score = self._detector.detect(frame)
             last_score = score
             if hit:

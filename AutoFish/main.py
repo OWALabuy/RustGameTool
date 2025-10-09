@@ -67,6 +67,7 @@ def build_components(cfg: dict) -> tuple:
         switch_keys=list(cfg.get("switch_keys", ["1", "2"])),
         switch_pause_ms=int(cfg.get("switch_pause_ms", 250)),
         wait_timeout_s=int(cfg.get("wait_timeout_s", 60)),
+        detect_suppress_after_cast_s=float(cfg.get("detect_suppress_after_cast_s", 5.0)),
     )
 
     cast_cfg = CastConfig(

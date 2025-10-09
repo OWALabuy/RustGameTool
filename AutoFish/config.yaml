@@ -21,6 +21,8 @@ cast:
   post_left_delay_ms: 30
   keep_right_during_wait: false
 
+detect_suppress_after_cast_s: 5.0
+
 switch_keys: ["1", "2"]
 switch_pause_ms: 250
 
