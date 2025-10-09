@@ -1,5 +1,9 @@
 AutoFish (Rust 自动钓鱼 - Linux/X11)
 
+重要提示：被ban了不要找我！
+
+我也不知道会不会兼容w开头的某个系统 反正现在我自己用得爽就行了喵
+
 功能
 - 基于图像识别（OpenCV 模板匹配）检测右下角“入库/战利品提示”
 - X11 多显示器：通过 `xdotool` 获取 Rust 窗口几何，只截取其右下 ROI
@@ -7,7 +11,7 @@ AutoFish (Rust 自动钓鱼 - Linux/X11)
 - 抛竿流程：按住右键并单击左键 → 等待检测 → 切竿 → 再次抛竿
 
 依赖
-- 系统：`xdotool`（窗口定位/激活），X11 环境（你使用 awesome WM）
+- 系统：`xdotool`（窗口定位/激活），X11 环境（作者使用 awesome WM）
   - Ubuntu/Debian: `sudo apt install xdotool`
 - Python 3.9+ 包：见 `requirements.txt`
 
