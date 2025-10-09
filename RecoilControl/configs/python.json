@@ -1,0 +1,48 @@
+{
+  "weapon_name": "Python",
+  "weapon_type": "pistol",
+  "fire_mode": "semi_auto",
+  "description": "Python手枪，威力大，后坐力大",
+  
+  "recoil_pattern": {
+    "vertical": {
+      "initial_kick": 12,
+      "per_shot_increase": 0,
+      "max_compensation": 15,
+      "curve_type": "linear"
+    },
+    "horizontal": {
+      "random_range": [-2, 2],
+      "drift_factor": 0.3
+    }
+  },
+  
+  "timing": {
+    "fire_rate": 200,
+    "compensation_delay": 20,
+    "smooth_factor": 0.95
+  },
+  
+  "compensation": {
+    "enabled": true,
+    "intensity": 0.8,
+    "smoothing": true,
+    "humanization": {
+      "enabled": true,
+      "random_factor": 0.08,
+      "micro_adjustments": true
+    }
+  },
+  
+  "advanced": {
+    "burst_mode": {
+      "enabled": false,
+      "burst_count": 1,
+      "burst_delay": 0
+    },
+    "adaptive_compensation": {
+      "enabled": true,
+      "learning_rate": 0.03
+    }
+  }
+} 

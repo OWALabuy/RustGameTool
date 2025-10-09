@@ -1,0 +1,73 @@
+{
+  "weapon_name": "AK-47",
+  "weapon_type": "assault_rifle",
+  "fire_mode": "full_auto",
+  "description": "AK-47突击步枪，后坐力大，需要强力补偿",
+  
+  "recoil_pattern": {
+    "pattern_type": "precise",
+    "shot_pattern": [
+      {"shot": 1, "vertical": 8, "horizontal": 0, "description": "第一发，轻微上跳"},
+      {"shot": 2, "vertical": 12, "horizontal": 0, "description": "第二发，继续上跳"},
+      {"shot": 3, "vertical": 15, "horizontal": 0, "description": "第三发，上跳加剧"},
+      {"shot": 4, "vertical": 18, "horizontal": 0, "description": "第四发，上跳继续"},
+      {"shot": 5, "vertical": 20, "horizontal": 0, "description": "第五发，上跳达到峰值"},
+      {"shot": 6, "vertical": 22, "horizontal": -2, "description": "第六发，开始向左偏移"},
+      {"shot": 7, "vertical": 25, "horizontal": -4, "description": "第七发，左偏移加剧"},
+      {"shot": 8, "vertical": 28, "horizontal": -6, "description": "第八发，左偏移继续"},
+      {"shot": 9, "vertical": 30, "horizontal": -8, "description": "第九发，左偏移稳定"},
+      {"shot": 10, "vertical": 32, "horizontal": -10, "description": "第十发，左偏移最大"},
+      {"shot": 11, "vertical": 35, "horizontal": -12, "description": "第十一发，继续左偏"},
+      {"shot": 12, "vertical": 38, "horizontal": -14, "description": "第十二发，左偏稳定"},
+      {"shot": 13, "vertical": 40, "horizontal": -16, "description": "第十三发，左偏继续"},
+      {"shot": 14, "vertical": 42, "horizontal": -18, "description": "第十四发，左偏最大"},
+      {"shot": 15, "vertical": 45, "horizontal": -20, "description": "第十五发，左偏稳定"}
+    ],
+    "fallback_pattern": {
+      "vertical": {
+        "initial_kick": 15,
+        "per_shot_increase": 8,
+        "max_compensation": 120,
+        "curve_type": "exponential"
+      },
+      "horizontal": {
+        "random_range": [-3, 3],
+        "drift_factor": 0.5
+      }
+    }
+  },
+  
+  "timing": {
+    "fire_rate": 600,
+    "compensation_delay": 50,
+    "smooth_factor": 0.8
+  },
+  
+  "compensation": {
+    "enabled": true,
+    "intensity": 1.0,
+    "smoothing": true,
+    "humanization": {
+      "enabled": true,
+      "random_factor": 0.1,
+      "micro_adjustments": true
+    }
+  },
+  
+  "advanced": {
+    "burst_mode": {
+      "enabled": false,
+      "burst_count": 3,
+      "burst_delay": 100
+    },
+    "adaptive_compensation": {
+      "enabled": true,
+      "learning_rate": 0.1
+    },
+    "pattern_analysis": {
+      "enabled": true,
+      "auto_adjust": true,
+      "confidence_threshold": 0.8
+    }
+  }
+} 

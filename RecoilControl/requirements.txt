@@ -1,0 +1,6 @@
+pynput==1.7.6
+pyautogui==0.9.54
+keyboard==0.13.5
+numpy==1.24.3
+json5==0.9.14
+python-xlib==0.33; sys_platform == "linux" 

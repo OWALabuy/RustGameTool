@@ -1,0 +1,48 @@
+{
+  "weapon_name": "Semi-Auto Rifle",
+  "weapon_type": "rifle",
+  "fire_mode": "semi_auto",
+  "description": "半自动步枪，精度高，后坐力适中",
+  
+  "recoil_pattern": {
+    "vertical": {
+      "initial_kick": 8,
+      "per_shot_increase": 2,
+      "max_compensation": 30,
+      "curve_type": "linear"
+    },
+    "horizontal": {
+      "random_range": [-1, 1],
+      "drift_factor": 0.2
+    }
+  },
+  
+  "timing": {
+    "fire_rate": 300,
+    "compensation_delay": 30,
+    "smooth_factor": 0.9
+  },
+  
+  "compensation": {
+    "enabled": true,
+    "intensity": 0.7,
+    "smoothing": true,
+    "humanization": {
+      "enabled": true,
+      "random_factor": 0.05,
+      "micro_adjustments": true
+    }
+  },
+  
+  "advanced": {
+    "burst_mode": {
+      "enabled": false,
+      "burst_count": 1,
+      "burst_delay": 0
+    },
+    "adaptive_compensation": {
+      "enabled": true,
+      "learning_rate": 0.05
+    }
+  }
+} 

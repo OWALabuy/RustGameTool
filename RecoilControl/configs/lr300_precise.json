@@ -1,0 +1,147 @@
+{
+  "weapon_name": "LR-300",
+  "weapon_type": "assault_rifle",
+  "fire_mode": "full_auto",
+  "description": "LR-300精确弹道配置",
+  "recoil_pattern": {
+    "pattern_type": "precise",
+    "shot_pattern": [
+      {
+        "shot": 1,
+        "vertical": 5,
+        "horizontal": 0,
+        "description": "第一发，轻微上跳"
+      },
+      {
+        "shot": 2,
+        "vertical": 8,
+        "horizontal": 0,
+        "description": "第二发，继续上跳"
+      },
+      {
+        "shot": 3,
+        "vertical": 10,
+        "horizontal": 0,
+        "description": "第三发，上跳加剧"
+      },
+      {
+        "shot": 4,
+        "vertical": 12,
+        "horizontal": 0,
+        "description": "第四发，上跳继续"
+      },
+      {
+        "shot": 5,
+        "vertical": 14,
+        "horizontal": 0,
+        "description": "第五发，上跳达到峰值"
+      },
+      {
+        "shot": 6,
+        "vertical": 16,
+        "horizontal": -1,
+        "description": "第六发，开始向左偏移"
+      },
+      {
+        "shot": 7,
+        "vertical": 18,
+        "horizontal": -2,
+        "description": "第七发，左偏移加剧"
+      },
+      {
+        "shot": 8,
+        "vertical": 20,
+        "horizontal": -3,
+        "description": "第八发，左偏移继续"
+      },
+      {
+        "shot": 9,
+        "vertical": 22,
+        "horizontal": -4,
+        "description": "第九发，左偏移稳定"
+      },
+      {
+        "shot": 10,
+        "vertical": 24,
+        "horizontal": -5,
+        "description": "第十发，左偏移最大"
+      },
+      {
+        "shot": 11,
+        "vertical": 26,
+        "horizontal": -6,
+        "description": "第十一发，继续左偏"
+      },
+      {
+        "shot": 12,
+        "vertical": 28,
+        "horizontal": -7,
+        "description": "第十二发，左偏稳定"
+      },
+      {
+        "shot": 13,
+        "vertical": 30,
+        "horizontal": -8,
+        "description": "第十三发，左偏继续"
+      },
+      {
+        "shot": 14,
+        "vertical": 32,
+        "horizontal": -9,
+        "description": "第十四发，左偏最大"
+      },
+      {
+        "shot": 15,
+        "vertical": 34,
+        "horizontal": -10,
+        "description": "第十五发，左偏稳定"
+      }
+    ],
+    "fallback_pattern": {
+      "vertical": {
+        "initial_kick": 10,
+        "per_shot_increase": 5,
+        "max_compensation": 80,
+        "curve_type": "linear"
+      },
+      "horizontal": {
+        "random_range": [
+          -2,
+          2
+        ],
+        "drift_factor": 0.3
+      }
+    }
+  },
+  "timing": {
+    "fire_rate": 600,
+    "compensation_delay": 50,
+    "smooth_factor": 0.8
+  },
+  "compensation": {
+    "enabled": true,
+    "intensity": 1.0,
+    "smoothing": true,
+    "humanization": {
+      "enabled": true,
+      "random_factor": 0.1,
+      "micro_adjustments": true
+    }
+  },
+  "advanced": {
+    "burst_mode": {
+      "enabled": false,
+      "burst_count": 3,
+      "burst_delay": 100
+    },
+    "adaptive_compensation": {
+      "enabled": true,
+      "learning_rate": 0.1
+    },
+    "pattern_analysis": {
+      "enabled": true,
+      "auto_adjust": true,
+      "confidence_threshold": 0.8
+    }
+  }
+}
