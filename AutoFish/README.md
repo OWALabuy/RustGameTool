@@ -1,8 +1,8 @@
-AutoFish (Rust 自动钓鱼 - Linux/X11)
+AutoFish (Rust 自动钓鱼 - Linux/Windows)
 
 重要提示：被ban了不要找我！
 
-我也不知道会不会兼容w开头的某个系统 反正现在我自己用得爽就行了喵
+已经兼容windows了喵喵
 
 功能
 - 基于图像识别（OpenCV 模板匹配）检测右下角“入库/战利品提示”
@@ -11,8 +11,10 @@ AutoFish (Rust 自动钓鱼 - Linux/X11)
 - 抛竿流程：按住右键并单击左键 → 等待检测 → 切竿 → 再次抛竿
 
 依赖
-- 系统：`xdotool`（窗口定位/激活），X11 环境（作者使用 awesome WM）
-  - Ubuntu/Debian: `sudo apt install xdotool`
+- 系统：
+  - Linux：`xdotool`（窗口定位/激活），X11 环境（作者使用 awesome WM）
+    - Ubuntu/Debian: `sudo apt install xdotool`
+  - Windows：无需额外依赖，使用 WinAPI（`ctypes`）实现窗口定位/激活
 - Python 3.9+ 包：见 `requirements.txt`
 
 安装
@@ -37,7 +39,7 @@ cd AutoFish && python main.py run
 ```
 
 热键
-- Alt+`：开始/暂停自动钓鱼
+- Alt+\`：开始/暂停自动钓鱼（Windows/Linux 通用，输入由 `pynput` 实现）
 - 退出：Ctrl+C（终端）
 
 配置
@@ -58,12 +60,19 @@ cd AutoFish && python main.py run
   2) 获取该窗口的绝对坐标与尺寸（位于哪个显示器均可）；
   3) 仅在该矩形内裁剪右下角 ROI，保证分辨率变化与多屏均可用。
 
+  - 在 Windows 下，使用 WinAPI 查找/激活窗口并获取几何。
+
 常见问题
-- 未安装 `xdotool`：无法定位窗口，请按上文安装。
+- Linux：未安装 `xdotool`：无法定位窗口，请按上文安装。
 - 模块找不到：推荐使用 `python -m AutoFish.main run`，或使用脚本方式（已加入路径引导）。
 - 模板误报/漏报：
   - 降低或升高 `threshold`（如 0.86 → 0.83/0.89）
   - 增减 `scales`（如 [0.9, 1.0, 1.1]）以兼容缩放/分辨率
   - 用更稳定的 UI 角标做模板（例如提示条左上角图标）
+
+Windows 注意事项
+- 若 Rust 以管理员身份运行，请也以管理员身份运行本工具（确保 `pynput` 与前台激活权限）。
+- 部分系统策略可能阻止程序切到前台，已包含 `BringWindowToTop` 兜底，但建议手动聚焦一次 Rust 窗口。
+- 如使用中文或其他本地化标题，可在 `AutoFish/config.yaml` 的 `window_name_patterns` 中追加对应正则或子串。
 
 

@@ -6,7 +6,7 @@ from typing import List
 from .capture import ROIConfig, ScreenCapture
 from .detector import DetectorConfig, LootDetector
 from .input_controller import InputController
-from .window_x11 import WindowGeometry
+from .window_backend import WindowGeometry
 
 
 @dataclass

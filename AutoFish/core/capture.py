@@ -6,7 +6,7 @@ from typing import Tuple
 import numpy as np
 from mss import mss
 
-from .window_x11 import WindowGeometry
+from .window_backend import WindowGeometry
 
 
 @dataclass

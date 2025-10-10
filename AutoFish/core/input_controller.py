@@ -4,7 +4,7 @@ from typing import Callable, List, Optional
 
 from pynput import keyboard, mouse
 
-from .window_x11 import activate_window
+from .window_backend import activate_window
 
 
 class InputController:

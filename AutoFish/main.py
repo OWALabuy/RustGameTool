@@ -17,7 +17,7 @@ from AutoFish.core.detector import DetectorConfig, LootDetector
 from AutoFish.core.input_controller import AltGraveHotkey, InputController
 from AutoFish.core.logging_utils import setup_logging
 from AutoFish.core.state_machine import CastConfig, FishingStateMachine
-from AutoFish.core.window_x11 import (
+from AutoFish.core.window_backend import (
     WindowGeometry,
     activate_window,
     find_window_id_by_patterns,
@@ -107,7 +107,7 @@ def run_bot(cfg_path: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Rust AutoFish - Linux/X11")
+    parser = argparse.ArgumentParser(description="Rust AutoFish - Linux/Windows")
     parser.add_argument("command", choices=["run"], help="运行机器人")
     parser.add_argument("--config", default="AutoFish/config.yaml")
     args = parser.parse_args()
